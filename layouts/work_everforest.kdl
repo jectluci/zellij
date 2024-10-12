@@ -1,3 +1,6 @@
+simplified_ui false
+pane_frames false
+
 layout {
     tab name="nvim" focus=true {
         pane
@@ -11,43 +14,31 @@ layout {
         children
         pane size=1 borderless=true {
             plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
-              format_left   "{mode} #[fg=#a7c080,bold]{session}{tabs}"
-              format_right  "{command_git_branch} {datetime}"
-              format_space  ""
+            hide_frame_for_single_pane "true"
 
-              border_enabled  "false"
-              border_char     "─"
-              border_format   "#[fg=#9D8F6F]{char}"
-              border_position "top"
+            format_left  "{mode}#[fg=#89B4FA,bg=#181825,bold] {session}#[bg=#181825] {tabs}"
+            format_right "{command_kubectx}#[fg=#424554,bg=#181825]::{command_kubens}{datetime}"
+            format_space "#[bg=#181825]"
 
-              hide_frame_for_single_pane "true"
+            mode_normal          "#[bg=#89B4FA] "
+            mode_tmux            "#[bg=#ffc387] "
+            mode_default_to_mode "tmux"
 
-              mode_normal        "#[bg=#89B4FA] {name} "
-              mode_locked        "#[bg=#89B4FA] {name} "
-              mode_resize        "#[bg=#89B4FA] {name} "
-              mode_pane          "#[bg=#89B4FA] {name} "
-              mode_tab           "#[bg=#89B4FA] {name} "
-              mode_scroll        "#[bg=#89B4FA] {name} "
-              mode_enter_search  "#[bg=#89B4FA] {name} "
-              mode_search        "#[bg=#89B4FA] {name} "
-              mode_rename_tab    "#[bg=#89B4FA] {name} "
-              mode_rename_pane   "#[bg=#89B4FA] {name} "
-              mode_session       "#[bg=#89B4FA] {name} "
-              mode_move          "#[bg=#89B4FA] {name} "
-              mode_prompt        "#[bg=#89B4FA] {name} "
-              mode_tmux          "#[bg=#ffc387] {name} "
+            tab_normal               "#[fg=#6C7086,bg=#181825] {index} {name} {fullscreen_indicator}{sync_indicator}{floating_indicator}"
+            tab_active               "#[fg=#9399B2,bg=#181825,bold,italic] {index} {name} {fullscreen_indicator}{sync_indicator}{floating_indicator}"
+            tab_fullscreen_indicator "□ "
+            tab_sync_indicator       "  "
+            tab_floating_indicator   "󰉈 "
 
-              mode_default_to_mode "tmux"
+            command_kubectx_command  "kubectx -c"
+            command_kubectx_format   "#[fg=#6C7086,bg=#181825,italic] {stdout}"
+            command_kubectx_interval "2"
 
-              tab_normal   "#[fg=#7a8478] {name} "
-              tab_active   "#[fg=#e67e80,bold,italic] {name} "
+            command_kubens_command  "kubens -c"
+            command_kubens_format   "#[fg=#6C7086,bg=#181825]{stdout} "
+            command_kubens_interval "2"
 
-              command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
-              command_git_branch_format      "#[fg=green] {stdout} "
-              command_git_branch_interval    "10"
-              command_git_branch_rendermode  "static"
-
-              datetime        "#[fg=#a7c080,bold] {format} "
+            datetime          "#[fg=#9399B2,bg=#181825] {format} "
               datetime_format "%A, %d %b %Y %H:%M"
               datetime_timezone "America/Lima"
             }
